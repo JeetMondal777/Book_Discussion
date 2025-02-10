@@ -1,5 +1,5 @@
 import React from "react";
-import logoBody from "../../../public/images/logoBody.png";
+import logoBody from "../../assets/images/logobody.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsProfileOpenTrue, setIsProfileOpenFalse } from "../../redux/Slices/isProfileOpenSlice";
