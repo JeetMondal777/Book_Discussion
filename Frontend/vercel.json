@@ -8,9 +8,7 @@
           "distDir": "dist"
         }
       }
-    ],
-    "scripts": {
-      "start": "npm run dev"
-    }
+    ]
+
   }
   
