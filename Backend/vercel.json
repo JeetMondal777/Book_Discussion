@@ -11,9 +11,7 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ],
-    "scripts": {
-      "start": "npx nodemon server.js"
-    }
+    ]
+
   }
   
