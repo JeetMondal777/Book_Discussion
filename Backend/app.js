@@ -18,7 +18,8 @@ const app = express();
 
 app.use(cors({ 
     credentials: true,
-    origin:process.env.CLIENT_BASE_URL
+    origin:process.env.CLIENT_BASE_URL,
+    allowedHeaders: ["Content-Type", "Authorization"]
  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
