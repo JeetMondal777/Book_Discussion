@@ -131,10 +131,12 @@ const SignupUser = () => {
           required
           type="password"
           placeholder='Password'
-          className='mb-3 w-full border-2 px-4 py-4 rounded-xl'
+          className='mb-2 w-full border-2 px-4 py-4 rounded-xl'
           value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
+
+        <p className="mr-auto  font-semibold mb-1 ml-1">Choose Your Profile Image</p>
         <input
           type="file"
           accept="image/*"

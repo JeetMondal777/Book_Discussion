@@ -10,7 +10,7 @@ const BookCard = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/books/`);
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/books`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -32,6 +32,7 @@ const BookCard = () => {
 
   const handleClick = (book) => {
     navigate("/bookDetails", { state: book }); // Navigate with book data
+    localStorage.setItem("selectedBook", JSON.stringify(book));
   };
 
   return (

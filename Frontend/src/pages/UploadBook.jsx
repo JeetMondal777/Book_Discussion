@@ -15,6 +15,11 @@ const UploadBook = () => {
 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  console.log(token);
+  
+
+
   useEffect(() => {
     if (testField) {
       setBookLink("https://drive.google.com/file/d/1oRBYB5fvPgByGF2cbGzxIQJf1mCxCNlY/view?usp=drivesdk");
@@ -43,15 +48,20 @@ const UploadBook = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+  
     if (!title || !author || !description || !bookLink || !bookCover) {
       toast.error("All fields are required!", { position: "top-center" });
       return;
     }
-
+  
+    setIsUploading(true);
+  
     const uploadedImageUrl = await uploadImage();
-    if (!uploadedImageUrl) return;
-
+    if (!uploadedImageUrl) {
+      setIsUploading(false);
+      return;
+    }
+  
     try {
       const newBook = {
         coverImage: uploadedImageUrl,
@@ -60,24 +70,46 @@ const UploadBook = () => {
         description,
         bookLink,
       };
-
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/books/upload`, newBook);
-
+  
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/books/upload`,
+        newBook,
+        {
+          headers: { Authorization: `Bearer ${token}` }, // Fixed header placement
+        }
+      );
+  
       if (response.status === 201) {
         toast.success("Book uploaded successfully!", { position: "top-center" });
-
-        setBookCover(null);
-        setTitle("");
-        setAuthor("");
-        setDescription("");
-        setBookLink("");
-        navigate("/dashboard");
+  
+        const chatCreateResponse = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/chats/createGroup`,
+          { title: newBook.title },
+          {
+            headers: { Authorization: `Bearer ${token}` }, // Fixed header placement
+          }
+        );
+  
+        if (chatCreateResponse.status === 201) {
+          toast.success("Chat created successfully!", { position: "top-center" });
+          setBookCover(null);
+          setTitle("");
+          setAuthor("");
+          setDescription("");
+          setBookLink("");
+          navigate("/dashboard");
+        } else {
+          toast.error("Failed to create chat!", { position: "top-center" });
+        }
       }
     } catch (error) {
-      setIsUploading(false)
+      console.error(error);
       toast.error("Internal server error. Please try again later.", { position: "top-center" });
+    } finally {
+      setIsUploading(false);
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center overflow-auto h-screen bg-[#A9B8D9]">
@@ -115,7 +147,7 @@ const UploadBook = () => {
         />
 
         <textarea
-          className="w-full h-40 border-black focus:outline-none border-2 mb-4 px-4 pr-32 pt-4 rounded-xl bg-transparent 
+          className="w-full h-32 border-black focus:outline-none border-2 mb-2 px-4 pr-32 pt-4 rounded-xl bg-transparent 
           placeholder:text-left placeholder:text-zinc-700 placeholder:font-semibold"
           placeholder="Enter Book Description"
           name="description"
@@ -124,6 +156,7 @@ const UploadBook = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
 
+        <p className="text- font-semibold mb-1 ml-1">Choose Your Book Cover Image</p>
         <input
           className="w-full placeholder:text-left border-black placeholder:font-semibold focus:outline-none border-2 mb-4 px-4 pr-32 py-4 rounded-xl bg-transparent placeholder-zinc-700"
           type="file"

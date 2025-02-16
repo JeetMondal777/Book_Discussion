@@ -11,6 +11,7 @@ import FullBookPage from './pages/Components/FullBookPage';
 import BookDiscussion from './pages/panel/BookDiscussion';
 import LogoutUser from './pages/LogOutUser';
 import { Toaster } from 'react-hot-toast';  // Import Toaster
+import MsgPanel from './pages/panel/MsgPanel';
 
 const App = () => {
   return (
@@ -43,6 +44,10 @@ const App = () => {
         <Route path='/userLogout' element={
           <AuthProtector>
             <LogoutUser />
+          </AuthProtector>} />
+        <Route path='/msg' element={
+          <AuthProtector>
+            <MsgPanel />
           </AuthProtector>} />
       </Routes>
     </div>

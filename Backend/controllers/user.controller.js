@@ -25,7 +25,7 @@ module.exports.registerUser = async(req,res)=>{
 
     // if(!result) return res.status(400).json({message:"image having some problems"})
 
-    const {fullname,coverImage, email, password}= req.body
+    const {fullname,coverImage, email, password} = req.body
     
     const isUserExist = await userModel.findOne({email})
     if(isUserExist){

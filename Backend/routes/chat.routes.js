@@ -7,9 +7,9 @@ const router = express.Router();
 
 
 
-router.post("/create", authMiddleware.findToken, chatController.accessChat);
+//router.post("/create", authMiddleware.findToken, chatController.accessChat);
 
-router.get("/fetchChats", authMiddleware.findToken, chatController.fetchChats)
+router.post("/fetchChats", authMiddleware.findToken, chatController.fetchChats)
 
 router.post("/createGroup", authMiddleware.findToken, chatController.createGroupChat)
 

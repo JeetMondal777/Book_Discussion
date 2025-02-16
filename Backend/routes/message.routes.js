@@ -7,5 +7,6 @@ const messageController = require("../controllers/message.controller")
 const router = express.Router();
 
 router.post("/send",authMiddleware.findToken, messageController.sendMessage)
+router.post("/get",authMiddleware.findToken, messageController.getMessage)
 
 module.exports = router;

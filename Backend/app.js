@@ -18,11 +18,16 @@ const app = express();
 
 app.disable("x-powered-by");
 
-app.use(cors({ 
-    credentials: true,
-    origin:process.env.CLIENT_URL,
+// app.use(cors({ 
+//     credentials: true,
+//     origin:"process.env.CLIENT_URL",
+//     allowedHeaders: ["Content-Type", "Authorization"]
+//  }));
+app.use(cors({
+    credentials:true,
+    origin:"http://localhost:5173",
     allowedHeaders: ["Content-Type", "Authorization"]
- }));
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

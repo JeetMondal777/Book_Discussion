@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const bookController = require("../controllers/book.controller");
 const bookModel = require("../models/book.model");
+const authMiddleware = require("../middlewares/auth.middleware")
 
 router.get("/", async (req, res) => {
   try {
@@ -14,9 +15,13 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/upload", (req, res) => {
+router.post("/upload", authMiddleware.findToken,(req, res) => {
   bookController.uploadBook(req, res);
 });
+
+// router.post("/getBookId", authMiddleware.findToken,(req, res) => {
+//   bookController.uploadBook(req, res);
+// });
 
 
 

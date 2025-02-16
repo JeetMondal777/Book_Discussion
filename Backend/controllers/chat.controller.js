@@ -6,81 +6,83 @@ const userModel = require("../models/user")
 
 
 
-module.exports.accessChat = async(req,res)=>{
+// module.exports.accessChat = async(req,res)=>{
 
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+//     const errors = validationResult(req)
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
 
     
 
-    const { userId } = req.body // i get chat id here 
-    if(!userId){
-        return res.status(400).json({error:"Invalid Credintials"})
-    }
+//     const { userId } = req.body // i get chat id here 
+//     if(!userId){
+//         return res.status(400).json({error:"Invalid Credintials"})
+//     }
     
-    let isChat = chatModel.find({                // chatModel.findById(chatId)
-        $and:[
-            {users:{$elemMatch : {$eq : req.user._id}}},
-            {users:{$elemMatch : {$eq : userId}}}
-        ]
-    }).populate("users").populate("latestMsg")
+//     let isChat = chatModel.find({                // chatModel.findById(chatId)
+//         $and:[
+//             {users:{$elemMatch : {$eq : req.user._id}}},
+//             {users:{$elemMatch : {$eq : userId}}}
+//         ]
+//     }).populate("users").populate("latestMsg")
 
-    isChat = await userModel.populate(isChat, {    // chatModel.findByIdAnd Update(chatId,{$push:{ users: req.user._id},})
-        path:"latestMsg.sender",
-        select:"fullname email"
-    })
+//     isChat = await userModel.populate(isChat, {    // chatModel.findByIdAnd Update(chatId,{$push:{ users: req.user._id},})
+//         path:"latestMsg.sender",
+//         select:"fullname email"
+//     })
 
-    if(isChat.length>0){
-        res.send(isChat[0])
-    }else{
-        let chatData = {
-            chatName:"sender",     //bookname
-            users:[req.user._id,userId], //req.user._id and chatAdmin
-        }
+//     if(isChat.length>0){
+//         res.send(isChat[0])
+//     }else{
+//         let chatData = {
+//             chatName:"sender",     //bookname
+//             users:[req.user._id,userId], //req.user._id and chatAdmin
+//         }
     
 
-    try {
-        const createdChat = await chatModel.create(chatData)
+//     try {
+//         const createdChat = await chatModel.create(chatData)
 
-        const FullChat = await chatModel.find({_id:createdChat._id}).populate("users")
+//         const FullChat = await chatModel.find({_id:createdChat._id}).populate("users")
 
-        res.status(200).send(FullChat)
-    } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
+//         res.status(200).send(FullChat)
+//     } catch (error) {
+//         res.status(400)
+//         throw new Error(error.message)
         
-    }
+//     }
 
-}
+// }
     
-}
+// }
 
 module.exports.createGroupChat = async(req,res)=>{
-    if(!title|| !req.body._id || !req.body.adminId){
-        res.status(400).send({message:"Please enter all fields."})
+    if(!req.body.title){
+        res.status(400).send({message:"Please enter title."})
     }
 
-    const isChatExist = chatModel.findOne({_id:req.body._id})
+    const {title} = req.body
 
-    if(isChatExist){
-        return res.status(400).send({error:"Chat already exist."})
-    }
+    // const isChatExist = chatModel.findOne({_id:chatId})
+
+    // if(isChatExist){
+    //     return res.status(400).send({error:"Chat already exist."})
+    // }
+
+    const admin = req.user
+    console.log(admin);
     
 
     let users = []
-    const admin = await userModel.findById(req.body.adminId)
-
     
     if(admin){
         users.push(admin)
-        users.push(req.user)
     }
 
     try {
         const groupChat = await chatModel.create({
-            title:req.body.title,
+            title:title,
             users:users,
             groupAdmin:admin._id
         })
@@ -91,41 +93,57 @@ module.exports.createGroupChat = async(req,res)=>{
         res.status(201).json(fullGroupChat)
 
     } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
+        return res.status(400).send({message:errors.array()})
     }
 }
 
-module.exports.fetchChats = async(req,res)=>{
+module.exports.fetchChats = async (req, res) => {
     try {
-        chatModel.find({users:{$elemMatch:{$eq:req.user._id}}})
-        .populate("users").populate("groupAdmin").populate("latestMsg")
-        .sort({ updatedAt:-1}).then(async(results)=>{
-            results = await userModel.populate(results, {
-                path:"latestMsg.sender",
-                select:"fullname email"
-            })
-            res.status(200).send(results)
-        })
+        const { chatTitle } = req.body; 
 
+        // Fetch chats for the given chatId (book discussion room)
+        let results = await chatModel.find({ title:chatTitle })
+            .populate("users")
+            .populate("groupAdmin")
+            .populate({
+                path: "latestMsg",
+                populate: {
+                    path: "sender",
+                    model: "user", // Ensure it matches your user model name
+                }
+            })
+            .sort({ updatedAt: -1 });
+
+            console.log(results);
+            
+
+        // Send response
+        res.status(200).json(results);
     } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
+        console.error("Error fetching chats:", error);
+        return res.status(400).json({ message: error.message });
     }
-}
+};
+
 
 module.exports.addToGroup = async(req,res)=>{
-    const {_id, userId} = req.body
+   const {chatId} = req.body
+   const user = req.user
+   console.log("for line 124",user)
+   
 
 
-    const added = chatModel.findOneAndUpdate({_id:_id},{
-        $push:{ users: req.user},
+
+    const added = await chatModel.findOneAndUpdate({_id:chatId},{
+        $push:{ users: user._id},
         
     },{new:true}).populate("users").populate("groupAdmin")
 
+    
+
     if(!added){
-        res.status(404).send({message:"Failed to add user to the group."})
+        res.status(404).send({message:"Failed to add user to the group.", error})
     }
 
-    res.status(201)
+    res.status(201).json(added.toObject({ getters: true }));
 }
