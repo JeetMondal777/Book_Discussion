@@ -20,7 +20,7 @@ app.disable("x-powered-by");
 
 app.use(cors({ 
     credentials: true,
-    origin:"process.env.CLIENT_URL",
+    origin:process.env.CLIENT_URL,
     allowedHeaders: ["Content-Type", "Authorization"]
  }));
 // app.use(cors({
