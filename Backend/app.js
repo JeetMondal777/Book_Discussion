@@ -18,11 +18,7 @@ const app = express();
 
 app.disable("x-powered-by");
 
-app.use(cors({ 
-    credentials: true,
-    origin:process.env.CLIENT_URL,
-    allowedHeaders: ["Content-Type", "Authorization"]
- }));
+
 // app.use(cors({
 //     credentials:true,
 //     origin:"http://localhost:5173",
@@ -32,6 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true }));
+
+app.use(cors({ 
+    credentials: true,
+    origin:"https://book-discussion-frontend.vercel.app",
+    allowedHeaders: ["Content-Type", "Authorization"]
+ }));
 
 // API Routes
 app.use("/users", userRoutes);
