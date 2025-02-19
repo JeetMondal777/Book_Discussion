@@ -71,7 +71,6 @@ module.exports.createGroupChat = async(req,res)=>{
     // }
 
     const admin = req.user
-    console.log(admin);
     
 
     let users = []
@@ -114,7 +113,7 @@ module.exports.fetchChats = async (req, res) => {
             })
             .sort({ updatedAt: -1 });
 
-            console.log(results);
+           
             
 
         // Send response
@@ -129,7 +128,6 @@ module.exports.fetchChats = async (req, res) => {
 module.exports.addToGroup = async(req,res)=>{
    const {chatId} = req.body
    const user = req.user
-   console.log("for line 124",user)
    
 
 
