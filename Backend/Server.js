@@ -11,7 +11,11 @@ const portServer = server.listen(port, () => {
 
 const io = require("socket.io")(portServer, {
     pingTimeout: 60000,
-    cors: { origin: process.env.CLIENT_URL }
+    cors:{ 
+        credentials: true,
+        origin:"https://book-discussion-frontend.vercel.app",
+        allowedHeaders: ["Content-Type", "Authorization"]
+     }
 });
 // const io = require("socket.io")(portServer, {
 //     pingTimeout: 60000,
