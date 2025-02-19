@@ -6,8 +6,7 @@ import gsap from "gsap";
 import { setIsProfileOpenFalse } from "../../redux/Slices/isProfileOpenSlice";
 
 const ProfilePanel = () => {
-
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const profilePanelRef = useRef(null);
   const isProfileOpen = useSelector((state) => state.isProfileOpen.isProfileOpen);
 
@@ -26,11 +25,15 @@ const ProfilePanel = () => {
   return (
     <div
       ref={profilePanelRef}
-      className="fixed top-0 right-0 mt-6 w-1/6 flex flex-col justify-start items-center bg-[#112332] shadow-lg rounded-l-xl z-50"
+      className="fixed top-0 right-0 w-[70%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] h-screen flex flex-col justify-start items-center bg-[#112332] shadow-lg rounded-l-xl z-50 p-5"
     >
+      {/* Close Button */}
       <i
-      onClick={()=>dispatch(setIsProfileOpenFalse())}
-      className="ri-logout-box-r-line text-2xl font-bold text-white absolute top-2 right-2 cursor-pointer"></i>
+        onClick={() => dispatch(setIsProfileOpenFalse())}
+        className="ri-close-line text-2xl font-bold text-white absolute top-3 right-3 cursor-pointer"
+      ></i>
+
+      {/* Show ProfileCard if logged in, else show NotProfileCard */}
       {token ? <ProfileCard /> : <NotProfileCard />}
     </div>
   );

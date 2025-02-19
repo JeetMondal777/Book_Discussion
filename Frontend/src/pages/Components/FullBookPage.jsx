@@ -19,10 +19,6 @@ const FullBookPage = () => {
     (state) => state.isDiscussionPanelOpen.isDiscussionPanelOpen
   );
 
-  const handleClick = () => {
-    navigate("/dashboard");
-  };
-
   if (!data)
     return (
       <h2 className="text-white bg-[#A9B8D9] text-center mt-10">
@@ -31,65 +27,75 @@ const FullBookPage = () => {
     );
 
   return (
-    <div className="relative p-10 bg-[#A9B8D9] h-full w-full flex flex-col justify-center items-start">
-      <Nav />
-      <div className="w-1/2 mt-15 h-full flex flex-col justify-between">
-        <h1 className="text-6xl font-bold text-white">{data.title}</h1>
-        <p className="text-white text-4xl mt-4">By {data.author}</p>
+    <div className="relative min-h-screen bg-[#A9B8D9] flex flex-col items-center">
+      
+      {/* Fixed Navigation */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-[#A9B8D9] shadow-md">
+        <Nav />
+      </div>
 
-        <Link to={data.bookLink} className="relative w-2/3 h-3/4 mt-4 group">
-          {/* Cover Image */}
-          <img
-            className="w-full h-full object-cover transition-all duration-300"
-            src={data.coverImage}
-            alt={data.title}
-          />
+      {/* Main Content (with padding to avoid overlap) */}
+      <div className="w-full p-6 sm:p-10 pt-20 sm:pt-15 flex flex-col items-center">
+        
+        {/* Book Content */}
+        <div className="flex flex-col lg:flex-row items-center lg:items-start w-full lg:w-3/4 mt-10 gap-6">
+          
+          {/* Left Section - Book Details */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center text-center lg:items-start lg:text-left">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white">{data.title}</h1>
+            <p className="text-white text-xl sm:text-2xl mt-3">By {data.author}</p>
 
-          {/* Hover Overlay Effect */}
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-            <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
-              Click to Read
-            </p>
+            {/* Book Image Link */}
+            <Link to={data.bookLink} className="relative w-full max-w-xs h-auto mt-4 group">
+              <img
+                className="w-full h-full object-cover rounded-lg transition-all duration-300"
+                src={data.coverImage}
+                alt={data.title}
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  Click to Read
+                </p>
+              </div>
+            </Link>
           </div>
-        </Link>
-      </div>
 
-      <div>
-        <div className="flex justify-between">
-          <h1 className="text-white text-4xl font-semibold mt-4">Description</h1>
-          <button
-            onClick={() => dispatch(setIsDiscussionPanelOpenTrue())}
-            className="mt-auto bg-white rounded-lg font-bold px-3 py-2"
-            book={data}
-          >
-            Click For Discuss
-          </button>
+          {/* Right Section - Description */}
+          {/* Right Section - Description */}
+          <div className="w-full lg:w-1/2 lg:max-h-[80vh] lg:overflow-y-auto scrollbar-hide justify-center flex flex-col">
+            <div className="flex justify-between items-center">
+              <h1 className="text-white text-3xl sm:text-4xl font-bold">Detailed Overview</h1>
+              <button
+                onClick={() => dispatch(setIsDiscussionPanelOpenTrue())}
+                className="bg-white rounded-lg font-bold px-4 py-2 text-black hover:bg-gray-200 duration-300 transition-all"
+              >
+                Click For Discuss
+              </button>
+            </div>
+            <p className="text-white text-lg mt-4 leading-relaxed">{data.description}</p>
+          </div>
+
         </div>
-        <p className="text-white text-lg mt-4">{data.description}</p>
-      </div>
 
-      {/* Close Button */}
-      <i
-        onClick={() => navigate("/dashboard")}
-        className="ri-close-circle-fill absolute top-6 right-6 text-4xl transition-all duration-300 cursor-pointer hover:text-white text-[#112332]"
-      ></i>
+        {/* Close Button */}
+        <i
+          onClick={() => navigate("/dashboard")}
+          className="ri-close-circle-fill absolute top-25 sm:top-8 right-4 text-3xl sm:text-4xl transition-all duration-300 cursor-pointer hover:text-white text-[#112332]"
+        ></i>
 
-      {/* Animated Discussion Panel */}
-      <div
-        className={`fixed top-0 right-0 w-1/3 h-full shadow-lg transform ${
-          isDiscussionPanelOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 ease-in-out`}
-      >
-        <MsgPanel />
-        <button
-          onClick={() => dispatch(setIsDiscussionPanelOpenFalse())}
-          className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg"
+        {/* Animated Discussion Panel */}
+        <div
+          className={`fixed absolute z-9999 top-0 right-0 w-full sm:w-2/3 lg:w-1/3 min-h-screen shadow-lg transform ${
+            isDiscussionPanelOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform duration-300 ease-in-out`}
         >
-          Close
-        </button>
+          <MsgPanel />
+          
+        </div>
       </div>
     </div>
   );
 };
 
 export default FullBookPage;
+
