@@ -9,8 +9,12 @@ const portServer = server.listen(port, () => {
 
 const io = require("socket.io")(portServer, {
     pingTimeout: 60000,
-    cors: { origin: "*" }
+    cors: { origin: process.env.CLIENT_URL }
 });
+// const io = require("socket.io")(portServer, {
+//     pingTimeout: 60000,
+//     cors: { origin: "*" }
+// });
 
 io.on("connection", (socket) => {
     console.log("Socket connected:", socket.id);
