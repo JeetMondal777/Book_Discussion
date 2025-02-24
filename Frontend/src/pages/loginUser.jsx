@@ -106,7 +106,7 @@ const UserLogin = () => {
             setIsLoggingIn(true);
           }}
           type="submit"
-          className="w-full text-white font-bold hover:border-black focus:outline-none py-3 rounded-xl bg-black hover:bg-white hover:text-black transition-all duration-300 hover:border-2 flex items-center justify-center"
+          className="w-full text-white font-bold border-black focus:outline-none py-3 rounded-xl bg-black hover:bg-white hover:text-black transition-all duration-300 border-2 flex items-center justify-center"
         >
           {isLoggingIn ? (
             <div role="status">
