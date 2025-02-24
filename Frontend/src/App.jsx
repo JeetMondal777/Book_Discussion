@@ -12,7 +12,6 @@ import BookDiscussion from "./pages/panel/BookDiscussion";
 import LogoutUser from "./pages/LogOutUser";
 import { Toaster } from "react-hot-toast"; 
 import MsgPanel from "./pages/panel/MsgPanel";
-import ReviewPanel from "./pages/panel/reviewPanel";
 import Reviews from "./pages/Reviews";
 
 const App = () => {
