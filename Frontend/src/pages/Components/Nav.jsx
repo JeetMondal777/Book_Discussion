@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import logoBody from "../../assets/images/logobody.png";
+import { Link } from "react-router-dom"; // ✅ Import Link from React Router
 import { useSelector, useDispatch } from "react-redux";
 import { setIsProfileOpenTrue, setIsProfileOpenFalse } from "../../redux/Slices/isProfileOpenSlice";
 import ProfilePanel from "../panel/ProfilePanel";
 import NavComponents from "./NavComponents"; // Sidebar Component
+import logoBody from "../../assets/images/logobody.png";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -25,18 +26,18 @@ const Nav = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center space-x-6">
-          <a href="/" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Home</a>
-          <a href="/dashboard" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Dashboard</a>
-          <a href="#" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">About</a>
-          <a href="/uploadBook" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Upload Book</a>
+          <Link to="/" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Home</Link>
+          <Link to="/dashboard" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Dashboard</Link>
+          <Link to="/about" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">About</Link>
+          <Link to="/uploadBook" className="text-gray-700 font-bold transition-all duration-300 hover:text-[#112332]">Upload Book</Link>
 
           {/* Log In / Sign Up Button */}
-          <a 
-            href="/loginUser" 
+          <Link 
+            to="/loginUser"
             className="bg-[#112332] text-white px-4 py-2 rounded-full font-bold transition-all duration-400 hover:bg-white hover:text-[#112332] border border-transparent hover:border-[#112332]"
           >
             Log In / Sign Up
-          </a>
+          </Link>
 
           {/* Profile Button */}
           <button 
