@@ -140,7 +140,7 @@ const SignupUser = () => {
 
         <button
           type="submit"
-          className="w-full text-white font-bold bg-black py-3 rounded-xl hover:bg-white hover:text-black border-2 hover:border-black transition-all duration-300 flex items-center justify-center"
+          className="w-full text-white font-bold bg-black py-3 rounded-xl hover:bg-white hover:text-black border-2 border-black transition-all duration-300 flex items-center justify-center"
         >
           {isSigningIn ? (
             <div className="flex items-center">
