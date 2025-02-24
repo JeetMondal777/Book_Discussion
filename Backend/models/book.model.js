@@ -25,6 +25,10 @@ const bookSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    reviews:{
+        type:Array,
+        default:[]
+    },
     uploadedBy:{
         type:String,
         

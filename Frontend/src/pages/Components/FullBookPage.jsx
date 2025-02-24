@@ -2,11 +2,10 @@ import { useLocation } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "./Nav";
-import { 
-  setIsDiscussionPanelOpenFalse, 
-  setIsDiscussionPanelOpenTrue 
-} from "../../redux/Slices/isDiscussionPanelOpenSlice";
+import { setIsDiscussionPanelOpenFalse, setIsDiscussionPanelOpenTrue } from "../../redux/Slices/isDiscussionPanelOpenSlice";
 import MsgPanel from "../panel/MsgPanel";
+import { setIsReviewPanelOpenTrue } from "../../redux/Slices/isReviewPanelOpenSlice";
+import ReviewPanel from "../panel/reviewPanel";
 
 const FullBookPage = () => {
   const location = useLocation();
@@ -18,6 +17,8 @@ const FullBookPage = () => {
   const isDiscussionPanelOpen = useSelector(
     (state) => state.isDiscussionPanelOpen.isDiscussionPanelOpen
   );
+  const isReviewPanelOpen = useSelector((state) => state.isReviewPanelOpen.isReviewPanelOpen);
+
 
   if (!data)
     return (
@@ -61,18 +62,31 @@ const FullBookPage = () => {
           </div>
 
           {/* Right Section - Description */}
-          {/* Right Section - Description */}
+
           <div className="w-full lg:w-1/2 lg:max-h-[80vh] lg:overflow-y-auto scrollbar-hide justify-center flex flex-col">
             <div className="flex justify-between items-center">
               <h1 className="text-white text-3xl sm:text-4xl font-bold">Detailed Overview</h1>
               <button
                 onClick={() => dispatch(setIsDiscussionPanelOpenTrue())}
-                className="bg-white rounded-lg font-bold px-4 py-2 text-black hover:bg-gray-200 duration-300 transition-all"
+                className="bg-white rounded-lg font-bold px-4 py-2 text-[#A9B8D9] hover:bg-gray-200 duration-300 transition-all"
               >
                 Click For Discuss
               </button>
             </div>
             <p className="text-white text-lg mt-4 leading-relaxed">{data.description}</p>
+            <button
+              className="py-4 bg-white text-[#A9B8D9] mt-5 rounded-xl font-bold hover:bg-gray-200 hover:border-white transition-all duration-300 "
+              onClick={() => dispatch(setIsReviewPanelOpenTrue())}
+            >
+              Share your valuable feedback!
+            </button>
+            <button
+            onClick={() => navigate("/review")} 
+          className="w-full mt-5 py-4 rounded-xl bg-gradient-to-r bg-blue-500 to-blue-600 hover:bg-blue-600 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl duration-300 transition-all"
+            
+        >
+          See All Reviews
+        </button>
           </div>
 
         </div>
@@ -90,6 +104,16 @@ const FullBookPage = () => {
           } transition-transform duration-300 ease-in-out`}
         >
           <MsgPanel />
+          
+          
+        </div>
+        <div
+          className={`fixed absolute z-9999 bottom-0  w-full  min-h-screen shadow-lg transform ${
+            isReviewPanelOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform transition-all duration-300 ease-in-out`}
+        >
+         <ReviewPanel />
+          
           
         </div>
       </div>

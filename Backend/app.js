@@ -13,6 +13,7 @@ const userRoutes = require("./routes/user.routes");
 const bookRoutes = require("./routes/book.routes");
 const chatRoutes = require("./routes/chat.routes");
 const messageRoutes = require("./routes/message.routes");
+const reviewRoutes = require("./routes/review.routes");
 
 // Database Connection
 connectDB();
@@ -21,7 +22,7 @@ connectDB();
 app.disable("x-powered-by");
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "*",
     allowedHeaders: ["Content-Type", "Authorization"],
     //methods: ["GET", "POST", "PUT", "DELETE"]
 }));
@@ -35,6 +36,7 @@ app.use("/users", userRoutes);
 app.use("/books", bookRoutes);
 app.use("/chats", chatRoutes);
 app.use("/messages", messageRoutes);
+app.use("/reviews", reviewRoutes);
 
 // Basic Route
 app.get("/", (req, res) => {

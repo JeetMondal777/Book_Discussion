@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const BookCard = () => {
   const [books, setBooks] = useState([]);
@@ -10,12 +11,8 @@ const BookCard = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/books`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setBooks(data);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/books`);
+        setBooks(response.data); // Axios automatically parses JSON
       } catch (error) {
         console.error("Error fetching books:", error);
       }

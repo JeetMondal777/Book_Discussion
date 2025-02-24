@@ -12,7 +12,7 @@ const server = http.createServer(app);
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: process.env.CLIENT_URL,
+        origin: process.env.CLIENT_URL || "*",
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true
     },
