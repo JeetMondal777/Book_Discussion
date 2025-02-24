@@ -1,11 +1,10 @@
-import { useLocation } from "react-router-dom";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "./Nav";
 import { setIsDiscussionPanelOpenFalse, setIsDiscussionPanelOpenTrue } from "../../redux/Slices/isDiscussionPanelOpenSlice";
 import MsgPanel from "../panel/MsgPanel";
 import { setIsReviewPanelOpenTrue } from "../../redux/Slices/isReviewPanelOpenSlice";
-import ReviewPanel from "../panel/reviewPanel";
+import ReviewPanel from "../panel/ReviewPanel";
 
 const FullBookPage = () => {
   const location = useLocation();
