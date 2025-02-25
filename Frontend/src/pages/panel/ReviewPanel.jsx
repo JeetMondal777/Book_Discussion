@@ -96,7 +96,7 @@ const ReviewPanel = ({ bookId }) => {
         <div className="space-y-4">
           <label className="block text-sm font-medium text-[#ffebc8]">Your Review</label>
           <textarea 
-            className="w-full p-4 border-2 border-[#f4c77e] bg-[#5a3e13]/50 text-[#ffebc8] rounded-xl focus:ring-2 focus:ring-[#f4c77e] placeholder-[#ffebc8]/50 transition-all resize-none"
+            className="w-full p-4 border-2 border-[#f4c77e] bg-[#5a3e13]/50 text-[#ffebc8] rounded-xl focus:outline-none placeholder-[#ffebc8]/50 transition-all resize-none"
             rows={isMobile ? 3 : 6}
             placeholder="What did you like or dislike about this book?"
             value={reviewText}

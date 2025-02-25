@@ -113,6 +113,7 @@ const MsgPanel = () => {
 
     const sendMessage = async (e) => {
         e.preventDefault();
+        setNewMsg("");
         if (!newMsg.trim()) return;
 
         try {
@@ -125,7 +126,7 @@ const MsgPanel = () => {
             if (response.data.message) {
                 setMessages((prev) => [...prev, response.data.message]);
                 socket.emit("new message", response.data.message);
-                setNewMsg("");
+                
             }
         } catch (error) {
             console.error("Error sending message:", error);
