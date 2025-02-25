@@ -12,9 +12,17 @@ const NavComponents = ({ isOpen, onClose }) => {
   // Handle sidebar animation
   useEffect(() => {
     if (isOpen) {
-      gsap.to(sidebarRef.current, { x: 0, duration: 0.5, ease: "power2.out" });
+      gsap.to(sidebarRef.current, { 
+        x: 0, 
+        duration: 0.5, 
+        ease: "power2.out"
+      });
     } else {
-      gsap.to(sidebarRef.current, { x: "100%", duration: 0.5, ease: "power2.in" });
+      gsap.to(sidebarRef.current, { 
+        x: "100%", 
+        duration: 0.5, 
+        ease: "power2.in"
+      });
     }
   }, [isOpen]);
 
@@ -27,12 +35,14 @@ const NavComponents = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Sidebar Overlay */}
-      {isOpen && <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={onClose}></div>}
+      {isOpen && (
+        <div className="fixed    z-40 transition-all duration-400"></div>
+      )}
 
-      {/* Sidebar */}
+      {/* Sidebar with Yellowish Blur */}
       <div 
         ref={sidebarRef} 
-        className="fixed top-0 right-0 h-screen w-3/4 max-w-xs bg-[#112332]/70 backdrop-blur-lg shadow-lg p-5 flex flex-col transform translate-x-full z-50"
+        className="fixed rounded-l-xl top-0 right-0 h-screen w-3/4 max-w-xs bg-yellow-200/10 backdrop-blur-lg shadow-lg p-5 flex flex-col transform translate-x-full z-50 transition-all duration-500"
       >
         {/* Close Button */}
         <button onClick={onClose} className="text-white text-3xl self-end">
@@ -41,14 +51,14 @@ const NavComponents = ({ isOpen, onClose }) => {
 
         {/* Navigation Links */}
         <nav className="mt-10 space-y-6 text-white">
-          <Link to="/" className="block text-lg font-semibold hover:text-gray-300 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg">Home</Link>
-          <Link to="/dashboard" className="block text-lg font-semibold hover:text-gray-300 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg">Dashboard</Link>
-          <Link to="#" className="block text-lg font-semibold hover:text-gray-300 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg">About</Link>
-          <Link to="/uploadBook" className="block text-lg font-semibold hover:text-gray-300 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg">Upload Book</Link>
-          <Link to="/loginUser" className="block text-lg font-semibold hover:text-gray-300 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg">Log In / Sign Up</Link>
+          <Link to="/" className="block text-lg font-semibold hover:text-gray-300 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg">Home</Link>
+          <Link to="/dashboard" className="block text-lg font-semibold hover:text-gray-300 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg">Dashboard</Link>
+          <Link to="#" className="block text-lg font-semibold hover:text-gray-300 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg">About</Link>
+          <Link to="/uploadBook" className="block text-lg font-semibold hover:text-gray-300 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg">Upload Book</Link>
+          <Link to="/loginUser" className="block text-lg font-semibold hover:text-gray-300 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg">Log In / Sign Up</Link>
 
           {/* Profile Icon - Now Opens Profile Panel */}
-          <button onClick={handleProfileClick} className="w-full flex items-center justify-start text-lg font-semibold bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg hover:text-gray-300 transition">
+          <button onClick={handleProfileClick} className="w-full flex items-center justify-start text-lg font-semibold bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg hover:text-gray-300 transition">
             <i className="ri-user-line text-xl mr-2"></i> Profile
           </button>
         </nav>

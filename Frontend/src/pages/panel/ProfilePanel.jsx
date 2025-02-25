@@ -4,6 +4,7 @@ import NotProfileCard from "../Components/NotProfileCard";
 import { useSelector, useDispatch } from "react-redux";
 import gsap from "gsap";
 import { setIsProfileOpenFalse } from "../../redux/Slices/isProfileOpenSlice";
+import bg from "../../assets/images/wooden_bg.png";
 
 const ProfilePanel = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ const ProfilePanel = () => {
   return (
     <div
       ref={profilePanelRef}
-      className="fixed top-0 right-0 w-[70%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] h-screen flex flex-col justify-start items-center bg-[#112332] shadow-lg rounded-l-xl z-50 p-5"
+      //style={{ background: `url(${bg}) no-repeat center center / cover` }}
+      className="fixed border-2 border-amber-600 backdrop-blur-lg top-0 right-0 w-[70%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] h-screen flex flex-col justify-start items-center  shadow-xl rounded-l-xl z-50 p-5"
     >
       {/* Close Button */}
       <i

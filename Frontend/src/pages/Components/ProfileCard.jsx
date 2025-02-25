@@ -25,9 +25,13 @@ const ProfileCard = () => {
   }, [user]); // Runs when user data updates
 
   return (
-    <div className="bg-[#112332] mt-5 rounded-l-xl w-full max-w-[350px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[500px] text-white flex flex-col justify-center items-center p-">
-      <div className="flex flex-col justify-center items-center w-full">
-        <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-5 text-center">
+    <div className="relative mt-5 rounded-l-xl w-full max-w-[350px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[500px] text-white flex flex-col justify-center items-center p-6">
+      {/* Background Blur */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 blur-2xl opacity-30 rounded-xl"></div>
+
+      {/* Card Content */}
+      <div className="relative flex flex-col justify-center items-center w-full  bg-opacity-90 rounded-xl  ">
+        <h1 className="font-bold text-xl md:text-2xl lg:text-3xl text-amber-100 mb-5 text-center">
           {user?.fullname?.firstname} {user?.fullname?.lastname}
         </h1>
         <div className="w-[80%] md:w-[70%] lg:w-[60%]">
@@ -41,11 +45,11 @@ const ProfileCard = () => {
 
           <p className="mt-5 text-sm md:text-base ml-2 mb-1 font-semibold">Accounts</p>
           <h3 className="font-semibold text-sm md:text-base bg-white/10 ml-1 backdrop-blur-lg border border-white/20 rounded-xl shadow-lg w-[95%] px-3 py-2">
-            Member Since <span className="text-green-600 ml-8">{formattedDate}</span>
+            Member Since <span className="text-amber-900 ml-12">{formattedDate}</span>
           </h3>
 
           <Link to="/uploadBook" className="flex justify-center items-center">
-            <h3 className="w-[95%] rounded-xl text-center font-semibold text-sm md:text-base bg-[#112332] border-2 border-white transition-all duration-300 hover:bg-white cursor-pointer hover:text-[#112332] px-3 py-2 mb-4 mt-4">
+            <h3 className="w-[95%] bg-amber-100 text-amber-900 hover:bg-amber-800 hover:text-amber-50 border-2 border-transparent hover:border-amber-50 rounded-xl text-center font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer px-3 py-2 mb-4 mt-4">
               Upload A Book
             </h3>
           </Link>

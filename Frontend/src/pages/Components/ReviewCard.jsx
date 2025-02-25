@@ -35,17 +35,22 @@ const ReviewCard = () => {
   }, []);
 
   // ⭐ Handle Rating Filter
-  const handleRatingFilter = (rating) => {
-    if (rating === selectedRating) {
-      setSelectedRating(null);
-      setFilteredReviews(reviews); // Show all reviews if no rating is selected
-    } else {
-      setSelectedRating(rating);
-      const filtered = reviews.filter((review) => review.rating === rating);
-      setFilteredReviews(filtered); // Show only matching reviews, or nothing if empty
-    }
-  };
-  
+const handleRatingFilter = (rating) => {
+  if (rating === selectedRating) {
+    // Reset filter when clicking on the selected rating again
+    setSelectedRating(null);
+    setFilteredReviews(reviews); // ✅ Show all reviews again
+  } else if (rating === null) {
+    // ✅ Clear filter and restore all reviews
+    setSelectedRating(null);
+    setFilteredReviews(reviews);
+  } else {
+    setSelectedRating(rating);
+    const filtered = reviews.filter((review) => review.rating === rating);
+    setFilteredReviews(filtered);
+  }
+};
+
 
   return (
     <div className="w-full p-5">
@@ -54,10 +59,10 @@ const ReviewCard = () => {
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
-            className={`p-2 rounded-lg transition-all duration-300 border ${
+            className={`p-2 rounded-lg transition-all duration-300 border text-[#ffebc8] ${
               selectedRating === star
-                ? "bg-amber-400 text-white border-amber-500"
-                : "bg-gray-100 hover:bg-gray-200 border-gray-300"
+                ? "bg-[#f4c77e] text-[#3b290c] border-[#e4a858]"
+                : "bg-[#5a3e13]/50 hover:bg-[#f4c77e]/40 border-[#f4c77e]/60"
             }`}
             onClick={() => handleRatingFilter(star)}
           >
@@ -80,21 +85,21 @@ const ReviewCard = () => {
           filteredReviews.map((review) => (
             <div
               key={review._id}
-              className="w-full max-w-lg bg-white shadow-lg rounded-xl p-5 border border-gray-200 transition-all hover:shadow-2xl"
+              className="w-full max-w-lg bg-[#3b290c]/40 backdrop-blur-lg shadow-lg rounded-xl p-5 border border-[#f4c77e]/60 transition-all hover:shadow-2xl hover:bg-[#7d531b]/40"
             >
               {/* Reviewer Details */}
               <div className="flex items-center gap-4">
                 <img
                   src={review.sender?.coverImage || "/default-avatar.png"}
                   alt="User"
-                  className="w-12 h-12 rounded-full object-cover border border-gray-300"
+                  className="w-12 h-12 rounded-full object-cover border border-[#f4c77e]/50"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-[#ffebc8]">
                     {review.sender?.fullname?.firstname || "Anonymous"}{" "}
                     {review.sender?.fullname?.lastname || ""}
                   </h3>
-                  <p className="text-sm text-gray-500">{review.sender?.email}</p>
+                  <p className="text-sm text-[#f4c77e]/70">{review.sender?.email}</p>
                 </div>
               </div>
 
@@ -104,31 +109,31 @@ const ReviewCard = () => {
                   <Star
                     key={star}
                     className={`w-6 h-6 ${
-                      star <= review.rating ? "text-amber-400 fill-amber-400" : "text-gray-300"
+                      star <= review.rating ? "text-[#f4c77e] fill-[#f4c77e]" : "text-[#d1a669]"
                     }`}
                   />
                 ))}
               </div>
 
               {/* Review Content */}
-              <p className="mt-3 text-gray-700">{review.content}</p>
+              <p className="mt-3 text-[#ffebc8]">{review.content}</p>
 
               {/* Book Details */}
-              <div className="mt-4 flex gap-4 items-center border-t pt-4">
+              <div className="mt-4 flex gap-4 items-center border-t border-[#f4c77e]/50 pt-4">
                 <img
                   src={book.coverImage}
                   alt="Book Cover"
-                  className="w-16 h-20 rounded-lg object-cover"
+                  className="w-16 h-20 rounded-lg object-cover border border-[#f4c77e]/40"
                 />
                 <div>
-                  <h4 className="text-lg font-medium">{book.title}</h4>
-                  <p className="text-sm text-gray-500">By {book.author}</p>
+                  <h4 className="text-lg font-medium text-[#ffebc8]">{book.title}</h4>
+                  <p className="text-sm text-[#f4c77e]/70">By {book.author}</p>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <h2 className="text-gray-700 text-2xl font-bold mt-10">No reviews found!</h2>
+          <h2 className="text-[#ffebc8] text-2xl font-bold mt-10">No reviews found!</h2>
         )}
       </div>
     </div>

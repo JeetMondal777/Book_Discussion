@@ -7,3 +7,9 @@
     scrollbar-width: none;
   }
 
+  body {
+    background: url('./assets/images/wooden_bg.png') no-repeat center center fixed;
+    background-size: cover;
+    
+  }
+  

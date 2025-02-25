@@ -14,7 +14,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-[#A9B8D9] min-h-screen flex flex-col items-center px-4">
+    <div className=" min-h-screen flex flex-col items-center px-4">
       {/* Navbar */}
       <Nav />
 
@@ -23,11 +23,11 @@ const Dashboard = () => {
         placeholder="Search Your Book" 
         value={searchInput}
         onChange={handleSearchChange}
-        className="w-full text-left sm:w-3/4 md:w-[50%] lg:w-[40%] placeholder:text-left placeholder:font-bold font-bold mt-28 border-black focus:outline-none border-2 mb-4 px-4 pr-8 py-3 rounded-xl bg-transparent placeholder-zinc-700 text-center"
+        className="w-full text-left sm:w-3/4 md:w-[50%] lg:w-[40%] placeholder:text-left placeholder:font-bold font-bold mt-28 border-amber-200 focus:outline-none border-2 mb-4 px-4 pr-8 py-3 rounded-xl bg-transparent text-amber-500 placeholder-amber-500 text-center"
       />
 
       {/* Heading */}
-      <h1 className="text-xl sm:text-2xl font-bold p-5 text-[#112332] text-center">All Available Books</h1>
+      <h1 className="text-xl sm:text-2xl font-bold p-5 text-amber-200 text-center">All Available Books</h1>
 
       {/* Books Grid */}
       <div className="flex overflow-y-auto scrollbar-hide flex-wrap justify-center items-center gap-6 w-full sm:w-[100%] md:w-[100%] lg:w-[100%]">
