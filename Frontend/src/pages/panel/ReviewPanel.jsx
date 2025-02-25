@@ -106,7 +106,7 @@ const ReviewPanel = ({ bookId }) => {
 
         {/* Submit Button */}
         <button 
-          className="w-full py-4 cursor-pointer rounded-xl bg-gradient-to-r from-[#f4c77e] to-[#e4a858] hover:from-[#e4a858] hover:to-[#c89150] text-[#3b290c] font-bold shadow-lg hover:shadow-xl transition-all"
+          className="w-full py-4 cursor-pointer rounded-xl bg-[#F4C77E] hover:bg-[#DCA256] text-[#3b290c] font-bold shadow-lg hover:shadow-xl transition-all duration-400"
           onClick={handleSubmitReview}
           disabled={loading}
         >
