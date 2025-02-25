@@ -164,7 +164,7 @@ const MsgPanel = () => {
                                 const isUserMessage = msg.sender._id === user._id;
                                 return (
                                     <div key={index} className={`flex flex-col ${isUserMessage ? 'items-end' : 'items-start'}`}>
-                                        <span className="text-sm text-[#E0C285]/80">{msg.sender.fullname.firstname}</span>
+                                        <span className="text-sm mr-1 ml-1 text-[#E0C285]/80">{msg.sender.fullname.firstname}</span>
                                         <div
                                             className={`p-3 rounded-2xl max-w-[85%] ${
                                                 isUserMessage 
