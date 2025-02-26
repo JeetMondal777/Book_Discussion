@@ -43,7 +43,7 @@ const LogoutUser = () => {
   }, []);
 
   return (
-    <div className='h-screen bg-[#112332] w-full flex justify-center items-center'>
+    <div className='h-screen w-full flex justify-center items-center'>
       <div role="status">
         <svg
           aria-hidden="true"
